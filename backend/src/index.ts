@@ -1,0 +1,19 @@
+import app from "./app"
+import { PORT } from "./config/config"
+import connectDB from "./db/db";
+
+const startServer = async () => {
+    try {
+        await connectDB();
+
+        app.listen(PORT, () => {
+            console.log(`✅ Server is running at the port ${PORT}.`);
+        });
+        
+    } catch (err: any) {
+        console.log("❌ Failed to start server: ", err.message);
+        process.exit(1);
+    };
+};
+
+startServer();
