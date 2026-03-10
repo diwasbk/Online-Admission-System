@@ -64,7 +64,35 @@ class AdmissionController {
 
         } catch (err: any) {
             console.log(err);
-            
+
+            res.status(500).send({
+                message: err.response?.message ? `Internal server error: ${err.message}` : "Internal server error.",
+                success: false
+            });
+        };
+    };
+
+    // Get Admission By Admission ID
+    getAllAdmissionByAdmissionId = async (req: Request, res: Response) => {
+        try {
+            const result = await admissionModel.findOne({ _id: req.params.admissionId });
+
+            if (!result) {
+                return res.status(404).send({
+                    message: "Admission not found!",
+                    success: false
+                });
+            };
+
+            res.status(200).send({
+                message: "Admission fetched successfully!",
+                result: result,
+                success: true
+            });
+
+        } catch (err: any) {
+            console.log(err);
+
             res.status(500).send({
                 message: err.response?.message ? `Internal server error: ${err.message}` : "Internal server error.",
                 success: false
