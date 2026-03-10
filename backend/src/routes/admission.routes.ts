@@ -7,5 +7,7 @@ const admissionRouter = express.Router();
 const admissionController = new AdmissionController();
 
 admissionRouter.post("/apply", schemaValidateMiddleware(admissionSchema), admissionController.applyAdmission);
+admissionRouter.get("/all", admissionController.getAllAdmission);
+admissionRouter.get("/:admissionId", admissionController.getAllAdmissionByAdmissionId);
 
 export default admissionRouter;
