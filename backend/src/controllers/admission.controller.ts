@@ -50,6 +50,27 @@ class AdmissionController {
             });
         };
     };
+
+    // Get All Admissions
+    getAllAdmission = async (req: Request, res: Response) => {
+        try {
+            const result = await admissionModel.find();
+
+            res.status(200).send({
+                message: result.length ? "Admissions fetched successfully!" : "No admission found!",
+                result: result,
+                success: true
+            });
+
+        } catch (err: any) {
+            console.log(err);
+            
+            res.status(500).send({
+                message: err.response?.message ? `Internal server error: ${err.message}` : "Internal server error.",
+                success: false
+            });
+        };
+    };
 };
 
 export default AdmissionController;
