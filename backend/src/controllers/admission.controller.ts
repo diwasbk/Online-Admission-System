@@ -155,6 +155,35 @@ class AdmissionController {
             });
         };
     };
+
+    // Delete Admission by Admission ID
+    deleteAdmissionByAdmissionID = async (req: Request, res: Response) => {
+        try {
+            const admissionExist = await admissionModel.findOne({ _id: req.params.admissionId });
+
+            if (!admissionExist) {
+                return res.status(404).send({
+                    message: "Admission not found!",
+                    result: false
+                });
+            };
+
+            await admissionModel.findOneAndDelete({ _id: req.params.admissionId });
+
+            res.status(200).send({
+                message: "Admission deleted successfully!",
+                success: true
+            });
+
+        } catch (err: any) {
+            console.log(err);
+
+            res.status(500).send({
+                message: err.response?.message ? `Internal server error: ${err.message}` : "Internal server error!",
+                success: false
+            });
+        };
+    };
 };
 
 export default AdmissionController;
