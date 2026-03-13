@@ -2,11 +2,11 @@ import mongoose, { Schema } from "mongoose";
 import { admissionType } from "../types/admission.types";
 
 const admissionSchema: Schema = new mongoose.Schema<admissionType>({
-    first_name: {
+    firstName: {
         type: String,
         required: true
     },
-    last_name: {
+    lastName: {
         type: String,
         required: true
     },
@@ -35,11 +35,11 @@ const admissionSchema: Schema = new mongoose.Schema<admissionType>({
         type: String,
         required: true
     },
-    school_name: {
+    schoolName: {
         type: String,
         required: true
     },
-    passed_year: {
+    passedYear: {
         type: String,
         required: true
     },
@@ -48,7 +48,7 @@ const admissionSchema: Schema = new mongoose.Schema<admissionType>({
         required: true,
         min: 0
     },
-    applied_for: {
+    appliedFor: {
         type: String,
         enum: ["science", "management", "law"],
         default: "science"

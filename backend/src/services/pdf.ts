@@ -4,7 +4,7 @@ import fs from "fs";
 export const generatePDF = (data: any) => {
     const doc = new PDFDocument({ margin: 50 });
 
-    const filePath = `./src/pdfs/${data.firstName}${data.lastName}.pdf`;
+    const filePath = `./src/pdfs/${data.firstName}${data.lastName}_${data._id}.pdf`;
 
     doc.pipe(fs.createWriteStream(filePath));
 

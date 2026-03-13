@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { admissionModel } from "../models/admission.model";
 import { ageCalculator } from "../utils/common";
+import { generatePDF } from "../services/pdf";
 
 class AdmissionController {
     // Apply Admission
@@ -15,29 +16,30 @@ class AdmissionController {
                 });
             };
 
-            const { first_name, last_name, dob, gender, email, phone, address, school_name, passed_year, gpa, applied_for, termsAgreed } = req.body;
+            const { firstName, lastName, dob, gender, email, phone, address, schoolName, passedYear, gpa, appliedFor, termsAgreed } = req.body;
 
             const calculatedAge = ageCalculator(dob);
 
             const result = await admissionModel.create({
-                first_name: first_name,
-                last_name: last_name,
+                firstName: firstName,
+                lastName: lastName,
                 dob: dob,
                 age: calculatedAge,
                 gender: gender,
                 email: email,
                 phone: phone,
                 address: address,
-                school_name: school_name,
-                passed_year: passed_year,
+                schoolName: schoolName,
+                passedYear: passedYear,
                 gpa: gpa,
-                applied_for: applied_for,
+                appliedFor: appliedFor,
                 termsAgreed: termsAgreed
             });
 
+           await generatePDF(result);
+
             res.status(201).send({
                 message: "Admission applied successfully!",
-                result: result,
                 success: true
             });
 
@@ -112,7 +114,7 @@ class AdmissionController {
                 });
             };
 
-            const { first_name, last_name, dob, gender, email, phone, address, school_name, passed_year, gpa, applied_for } = req.body;
+            const { firstName, lastName, dob, gender, email, phone, address, schoolName, passedYear, gpa, appliedFor } = req.body;
 
             let calculatedAge;
 
@@ -124,18 +126,18 @@ class AdmissionController {
                 { _id: req.params.admissionId },
                 {
                     $set: {
-                        first_name: first_name,
-                        last_name: last_name,
+                        firstName: firstName,
+                        lastName: lastName,
                         dob: dob,
                         age: calculatedAge,
                         gender: gender,
                         email: email,
                         phone: phone,
                         address: address,
-                        school_name: school_name,
-                        passed_year: passed_year,
+                        schoolName: schoolName,
+                        passedYear: passedYear,
                         gpa: gpa,
-                        applied_for: applied_for
+                        appliedFor: appliedFor
                     }
                 }, { new: true }
             );
