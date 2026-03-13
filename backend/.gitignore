@@ -18,3 +18,5 @@ build/
 *.swo
 *.swn
 .DS_Store
+
+src/pdfs/
