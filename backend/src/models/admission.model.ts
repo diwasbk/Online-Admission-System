@@ -53,6 +53,10 @@ const admissionSchema: Schema = new mongoose.Schema<admissionType>({
         enum: ["science", "management", "law"],
         default: "science"
     },
+    pdfPath: {
+        type: String,
+        default: ""
+    },
     termsAgreed: {
         type: Boolean,
         required: true

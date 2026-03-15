@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { admissionModel } from "../models/admission.model";
 import { ageCalculator } from "../utils/common";
 import { generatePDF } from "../services/pdf";
+import { sendEmail } from "../services/email";
 
 class AdmissionController {
     // Apply Admission
@@ -36,7 +37,34 @@ class AdmissionController {
                 termsAgreed: termsAgreed
             });
 
-           await generatePDF(result);
+            const pdfUrl = await generatePDF(result);
+
+            // Save PDF Url in MongoDB
+            result.pdfPath = pdfUrl;
+            await result.save();
+
+            // Email HTML
+            const html = `
+            <h2>Admission Application Submitted</h2>
+            <p>Dear ${firstName} ${lastName},</p>
+            <p>Your admission application has been submitted successfully.</p>
+            <p>Please find the attached PDF copy of your application.</p>
+            <br/>
+            <p>Best Regards,<br/>MERN Stack Institute</p>
+             `;
+
+            // Send Email with attachment
+            await sendEmail(
+                email,
+                "Admission Application Submitted!",
+                html,
+                [
+                    {
+                        filename: `${firstName}${lastName}.pdf`,
+                        path: `./src${pdfUrl}` // convert URL → server path
+                    }
+                ]
+            );
 
             res.status(201).send({
                 message: "Admission applied successfully!",

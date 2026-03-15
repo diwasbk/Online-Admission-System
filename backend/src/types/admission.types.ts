@@ -13,6 +13,7 @@ export const admissionSchema = z.object({
     passedYear: z.string("Passed year is required.").nonempty("Passed year is required.").regex(/^\d{4}$/, { message: "Passed year must be a 4 digit year." }),
     gpa: z.number("GPA is required.").nonnegative("GPA cannot be negative."),
     appliedFor: z.enum(["science", "management", "law"]).default("science"),
+    pdfPath: z.string().optional(),
     termsAgreed: z.boolean("You must agree to the terms and conditions.").refine((val) => val === true, "You must agree to the terms and conditions.")
 });
 export type admissionType = z.infer<typeof admissionSchema>;
