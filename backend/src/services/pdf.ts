@@ -4,7 +4,9 @@ import fs from "fs";
 export const generatePDF = (data: any) => {
     const doc = new PDFDocument({ margin: 50 });
 
-    const filePath = `./src/pdfs/${data.firstName}${data.lastName}_${data._id}.pdf`;
+    const fileName = `${data.firstName}${data.lastName}_${data._id}.pdf`;
+    const filePath = `./src/pdfs/${fileName}`; // server file location
+    const dbPath = `/pdfs/${fileName}`; // stored in database
 
     doc.pipe(fs.createWriteStream(filePath));
 
@@ -84,5 +86,5 @@ export const generatePDF = (data: any) => {
 
     doc.end();
 
-    return filePath;
+    return dbPath;
 };
