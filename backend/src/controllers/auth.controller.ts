@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { userModel } from "../models/user.model"
 import bcrypt from "bcrypt";
+import { generateToken } from "../utils/jwt";
 
 class AuthController {
     // Signup User
@@ -67,8 +68,24 @@ class AuthController {
                 });
             };
 
+            const payload = {
+                id: userExist._id.toString(),
+                email: userExist.email,
+                role: userExist.role
+            };
+
+            const token = generateToken(payload);
+
+            res.cookie("auth_token", token, {
+                httpOnly: true,
+                maxAge: 3000 * 1000,
+                sameSite: "lax",
+                secure: false
+            });
+
             res.status(200).send({
                 message: "Logged in successfully!",
+                result: token,
                 success: true
             });
 
