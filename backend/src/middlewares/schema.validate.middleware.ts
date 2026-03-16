@@ -8,6 +8,7 @@ const schemaValidateMiddleware = (schema: ZodSchema) => async (req: Request, res
         req.body = parseBody;
 
         next();
+        
     } catch (err: any) {
         res.status(400).send({
             message: err.issues[0].message,
