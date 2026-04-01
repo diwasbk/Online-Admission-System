@@ -6,7 +6,7 @@ export const admissionSchema = z.object({
     dob: z.string("Date of birth is required.").nonempty("Date of birth is required."),
     age: z.number().optional(),
     gender: z.enum(["male", "female", "others"]).default("male"),
-    email: z.string("Email is required.").email({ message: "Invalid email." }),
+    email: z.string("Email is required.").nonempty("Email is required.").email({ message: "Invalid email." }),
     phone: z.string("Phone number is required.").nonempty("Phone number is required.").regex(/^\d{10}/, { message: " Phone number must be exactly 10 digits." }),
     address: z.string("Address is required.").nonempty("Address is required.").min(5, "Address must be at least 5 chatacters."),
     schoolName: z.string("School name is required.").nonempty("School name is required.").min(10, "School name must be at least 10 characters."),
