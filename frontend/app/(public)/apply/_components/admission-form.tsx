@@ -55,11 +55,11 @@ export default function ApplicationForm() {
               Last Name
             </label>
             <input
+              {...register("lastName")}
               id="lastName"
               type="text"
               placeholder="Thapa"
               className={formStyles.input}
-              {...register("lastName")}
             />
             {errors.lastName && (
               <p className="text-red-500 text-sm">{errors.lastName.message}</p>
@@ -71,10 +71,10 @@ export default function ApplicationForm() {
               Date of Birth
             </label>
             <input
+              {...register("dob")}
               id="dob"
               type="date"
               className={formStyles.input}
-              {...register("dob")}
             />
             {errors.dob && (
               <p className="text-red-500 text-sm">{errors.dob.message}</p>
@@ -85,7 +85,8 @@ export default function ApplicationForm() {
             <label htmlFor="gender" className={formStyles.label}>
               Gender
             </label>
-            <select id="gender" className={formStyles.input} {...register("gender")}>
+            <select id="gender" className={formStyles.input}
+              {...register("gender")}>
               <option value="male">Male</option>
               <option value="female">Female</option>
               <option value="others">Other</option>
@@ -97,11 +98,11 @@ export default function ApplicationForm() {
               Address
             </label>
             <input
+              {...register("address")}
               id="address"
               type="text"
               placeholder="Kathmandu, Nepal"
               className={formStyles.input}
-              {...register("address")}
             />
             {errors.address && (
               <p className="text-red-500 text-sm">{errors.address.message}</p>
@@ -113,11 +114,11 @@ export default function ApplicationForm() {
               Email
             </label>
             <input
+              {...register("email")}
               id="email"
               type="email"
               placeholder="example@gmail.com"
               className={formStyles.input}
-              {...register("email")}
             />
             {errors.email && (
               <p className="text-red-500 text-sm">{errors.email.message}</p>
@@ -129,11 +130,11 @@ export default function ApplicationForm() {
               Phone
             </label>
             <input
+              {...register("phone")}
               id="phone"
               type="tel"
               placeholder="9876543210"
               className={formStyles.input}
-              {...register("phone")}
             />
             {errors.phone && (
               <p className="text-red-500 text-sm">{errors.phone.message}</p>
@@ -145,11 +146,11 @@ export default function ApplicationForm() {
               School Name
             </label>
             <input
+              {...register("schoolName")}
               id="schoolName"
               type="text"
               placeholder="Kathmandu Model College"
               className={formStyles.input}
-              {...register("schoolName")}
             />
             {errors.schoolName && (
               <p className="text-red-500 text-sm">{errors.schoolName.message}</p>
@@ -160,7 +161,8 @@ export default function ApplicationForm() {
             <label htmlFor="passedYear" className={formStyles.label}>
               Passed Year
             </label>
-            <select id="passedYear" className={formStyles.input} {...register("passedYear")}>
+            <select id="passedYear" className={formStyles.input}
+              {...register("passedYear")}>
               <option value="">Select Year</option>
               <option value="2021">2021</option>
               <option value="2022">2022</option>
@@ -176,12 +178,12 @@ export default function ApplicationForm() {
               GPA
             </label>
             <input
+              {...register("gpa", { valueAsNumber: true })}
               id="gpa"
               type="number"
               step="0.1"
               placeholder="3.80"
               className={formStyles.input}
-              {...register("gpa", { valueAsNumber: true })}
             />
             {errors.gpa && (
               <p className="text-red-500 text-sm">{errors.gpa.message}</p>
@@ -192,7 +194,8 @@ export default function ApplicationForm() {
             <label htmlFor="appliedFor" className={formStyles.label}>
               Applied For
             </label>
-            <select id="appliedFor" className={formStyles.input} {...register("appliedFor")}>
+            <select id="appliedFor" className={formStyles.input}
+              {...register("appliedFor")}>
               <option value="science">Science</option>
               <option value="management">Management</option>
               <option value="law">Law</option>
@@ -200,7 +203,8 @@ export default function ApplicationForm() {
           </div>
 
           <div className="md:col-span-2 flex items-center gap-2">
-            <input id="terms" type="checkbox" className="w-4 h-4 cursor-pointer" {...register("termsAgreed")} />
+            <input id="terms" type="checkbox" className="w-4 h-4 cursor-pointer"
+              {...register("termsAgreed")} />
             <label htmlFor="terms" className="text-sm text-gray-600">
               I agree to the terms and conditions and confirm that the information submitted is true.
             </label>
